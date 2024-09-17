@@ -16,4 +16,51 @@ public class Principal {
         
 
     }
+
+    public static boolean agregarProducto(Producto p) {
+        return inventario.add(p);
+
+    }
+
+    public static boolean EliminarProducto(int id) {
+        return inventario.removeIf(n -> n.getId() == id);
+
+    }
+
+    public static void mostraInventario() {
+        for (Producto producto : inventario) {
+            System.out.println(producto);
+        }
+
+    }
+
+    public static boolean venderProducto(int id, int cantidad) {
+        boolean vendido=false;
+        for (int i = 0; i < inventario.size(); i++) {
+            if (inventario.get(i).getStock() >= cantidad && inventario.get(i).getId() == id) {
+                inventario.get(i).setStock(inventario.get(i).getStock() - cantidad);
+                vendido=true;
+            } else {
+                vendido = false;
+            }
+        }
+        return vendido;
+    }
+
+    public static void ProcesarPedido(int num,String nombre) {
+        ArrayList<Producto> me=new ArrayList<>();
+        for (int i = 0; i <=num; i++) {
+            System.out.print("digite el id del producto: ");
+            int id=entrada.nextInt();
+            System.out.print("digite el numero de productos: ");
+            int cantidad=entrada.nextInt();
+            venderProducto(id,cantidad);
+           
+            
+        }
+        
+        Pedidos p = new Pedidos(nombre,me);
+        
+    }
+
 }
